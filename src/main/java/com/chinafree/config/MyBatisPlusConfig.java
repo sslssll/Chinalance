@@ -1,4 +1,4 @@
-package com.chinafree.auth.config;
+package com.chinafree.config;
 
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

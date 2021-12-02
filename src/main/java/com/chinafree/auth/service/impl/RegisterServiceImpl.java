@@ -68,17 +68,10 @@ public class RegisterServiceImpl implements RegisterService {
             throw new BusinessException(ResponseCodeEnum.FORBIDDEN.toString(),"手机号已注册");
         }
 
-        long loginUserId = sysLoginUserMapper.insert(build);
+        sysLoginUserMapper.insert(build);
         SysLoginUser sysLoginUser1 = sysLoginUserMapper.selectOne(new QueryWrapper<SysLoginUser>().eq("login_mobile", body.getPhoneNumber()));
 
-
         User user = User.builder().username(body.getPhoneNumber()).loginUserId(sysLoginUser1.getId()).build();
-        long userId = userMapper.insert(user);
-
-//        SysLoginRef loginRef = SysLoginRef.builder()
-//                .loginId(id)
-//                .userId(id)
-//                .build();
-//        sysLoginRefMapper.insert(loginRef);
+        userMapper.insert(user);
     }
 }

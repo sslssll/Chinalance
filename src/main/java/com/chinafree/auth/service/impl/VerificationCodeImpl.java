@@ -54,6 +54,12 @@ public class VerificationCodeImpl implements VerificationCode {
     }
 
 
+    /**
+     * check验证码
+     * @param name
+     * @param phoneNumber
+     * @param vertifivationCode
+     */
     @Override
     public void checkVerificationCode(String name, String phoneNumber, String vertifivationCode) {
         if (!redisTemplate.hasKey(name + CODE + phoneNumber)) {

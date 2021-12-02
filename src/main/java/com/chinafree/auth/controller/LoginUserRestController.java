@@ -28,6 +28,11 @@ public class LoginUserRestController  {
     @Autowired
     private LoginService loginService;
 
+    @RequestMapping("/login")
+    public String login(){
+        return "redirect:main.html";
+    }
+
 
     @ApiOperation(value="正常登录" , notes = "邮箱和手机+密码登录")
     @RequestMapping(value = EMAIL_LOGIN_URL, method = RequestMethod.POST)

@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chinafree.auth.mapping.LoginUserMapping;
 
-import java.util.List;
-
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
 
@@ -48,11 +46,6 @@ public class LoginUserServiceImpl implements LoginUserService {
         return initLoginUserRef(sysLoginUser);
     }
 
-    @Override
-    public List<ThirdPartAccountResult> getThirdPartAccountByLoginId(Long loginId) {
-        List<SysThirdPartAccount> sysThirdPartAccounts = thirdPartAccountMapper.selectList(new QueryWrapper<SysThirdPartAccount>().eq(Column.LOGIN_ID.getColumn(), loginId));
-        return LoginUserMapping.loginUserMapping.thirdPartAccountsToResult(sysThirdPartAccounts);
-    }
 
     /**
      * 初始化用户映射信息

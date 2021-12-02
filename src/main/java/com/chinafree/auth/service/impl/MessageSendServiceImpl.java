@@ -1,13 +1,9 @@
 package com.chinafree.auth.service.impl;
 
-import com.chinafree.auth.service.MessageSendService;
-import com.aliyun.tea.*;
-import com.aliyun.dysmsapi20170525.*;
 import com.aliyun.dysmsapi20170525.models.*;
-import com.aliyun.teaopenapi.*;
 import com.aliyun.teaopenapi.models.*;
 
-public class MessageSendServiceImpl implements MessageSendService {
+public class MessageSendServiceImpl {
 
     final static String accessKeyId="accessKeyId";
     final static String accessKeySecret = "accessKeySecret";
