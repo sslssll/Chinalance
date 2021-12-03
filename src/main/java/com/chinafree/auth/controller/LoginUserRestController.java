@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.*;
  * @date 2018/8/24 14:33
  */
 @RestController
+@RequestMapping("/login")
 @Api(produces = "application/json",tags = "LoginUserRestController",description="登录接口")
-public class LoginUserRestController  {
+public class LoginUserRestController extends BaseController {
     private static final String EMAIL_LOGIN_URL = "/normal/login";
     private static final String SHORT_MESSAGE_LOGIN_URL = "/short/message/login";
     private static final String THIRD_PART_LOGIN_URL = "/third/part/login";
@@ -43,7 +44,7 @@ public class LoginUserRestController  {
     }
 
 
-    @ApiOperation(value="正常登录" , notes = "手机+密码登录")
+    @ApiOperation(value="正常登录" , notes = "发送登录验证码")
     @RequestMapping(value = "sendLoginVerfication", method = RequestMethod.POST)
     public BaseResponse sendLoginVerfication(@RequestParam("phoneNumber") String phoneNumber) {
         return loginService.sendRegisterVerificationCode(phoneNumber);
@@ -51,7 +52,7 @@ public class LoginUserRestController  {
 
 
 
-    @ApiOperation(value="正常登录" , notes = "手机+密码登录")
+    @ApiOperation(value="正常登录" , notes = "手机+验证码登录")
     @RequestMapping(value = SHORT_MESSAGE_LOGIN_URL, method = RequestMethod.POST)
     public EntityResponse<LoginResult> LoginByPhoneAndVerfication(@RequestBody RequestParameter<LoginParam> request) {
         LoginParam loginParam = request.getBody();

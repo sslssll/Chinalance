@@ -20,7 +20,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private NormalLoginService normalLoginService;
-
     @Autowired
     private VerificationCode verificationCode;
 

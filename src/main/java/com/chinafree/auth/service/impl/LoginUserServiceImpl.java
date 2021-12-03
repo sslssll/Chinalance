@@ -10,6 +10,7 @@ import com.chinafree.auth.model.po.User;
 import com.chinafree.auth.model.result.ThirdPartAccountResult;
 import com.chinafree.auth.service.LoginUserService;
 import com.chinafree.common.model.enumeration.ResponseCodeEnum;
+import com.chinafree.common.utils.MD5Utils;
 import com.chinafree.mapper.SysLoginUserMapper;
 import com.chinafree.mapper.SysThirdPartAccountMapper;
 import com.chinafree.mapper.UserMapper;
@@ -44,6 +45,12 @@ public class LoginUserServiceImpl implements LoginUserService {
         loginUserQueryWrapper.eq(Column.LOGIN_MOBILE.getColumn(), loginMail);
         final SysLoginUser sysLoginUser = sysLoginUserMapper.selectOne(loginUserQueryWrapper);
         return initLoginUserRef(sysLoginUser);
+    }
+
+    @Override
+    public void modifyPasswordByPhone(Long LoginUserId, String password) {
+        SysLoginUser sysLoginUser = SysLoginUser.builder().id(LoginUserId).password(MD5Utils.hash(password)).build();
+        sysLoginUserMapper.updateById(sysLoginUser);
     }
 
 

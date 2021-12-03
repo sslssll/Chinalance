@@ -5,11 +5,11 @@ import com.chinafree.auth.model.bo.LoginUserBo;
 import com.chinafree.auth.model.po.SysLoginLog;
 import com.chinafree.auth.model.po.User;
 import com.chinafree.auth.model.result.LoginResult;
-import com.chinafree.auth.model.result.ThirdPartAccountResult;
 import com.chinafree.auth.service.LoginUserService;
 import com.chinafree.auth.service.NormalLoginService;
 
 import com.chinafree.common.base.HttpStatus;
+import com.chinafree.common.utils.JWTUtils;
 import com.chinafree.common.utils.MD5Utils;
 import com.chinafree.common.utils.RegexUtils;
 import com.chinafree.mapper.SysLoginLogMapper;
@@ -20,9 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -69,22 +67,17 @@ public class NormalLoginServiceImpl implements NormalLoginService {
             throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR, "user为空");
         }
 
-        Map<String,Long> map = new HashMap<>();
-        map.put("loginId", loginUserBo.getId());
-        map.put("userId",user.getId());
+        Map<String,String> map = new HashMap<>();
+        map.put("loginId", loginUserBo.getId().toString());
+        map.put("userId",user.getId().toString());
 
         LoginResult result = new LoginResult();
         result.setLoginId(loginUserBo.getId());
         result.setLoginUserType(loginUserBo.getLoginUserType());
         result.setUserId(user.getId());
         //////////设置一个token
-
-
-
-
-
-
-
+        String token = JWTUtils.getToken(map);
+        result.setToken(token);
         //将loginId和userId存入redis中
         redisTemplate.opsForValue().set(TOKEN +result.getToken(),map,2, TimeUnit.HOURS);
         return result;

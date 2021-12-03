@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/register")
 @Api(produces = "application/json", tags = "RegisterController", description = "注册接口")
-public class RegisterController {
+public class RegisterController extends BaseController{
 
     @Autowired
     private RegisterService registerService;

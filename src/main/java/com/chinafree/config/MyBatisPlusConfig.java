@@ -36,7 +36,7 @@ public class MyBatisPlusConfig {
 
 
     @Bean
-    @Profile({"dev","test"})
+//    @Profile({"dev","test"})
     public PerformanceMonitorInterceptor performanceMonitorInterceptor(){
         PerformanceMonitorInterceptor performance = new PerformanceMonitorInterceptor();
 //        performance.setLogTargetClassInvocation(/);

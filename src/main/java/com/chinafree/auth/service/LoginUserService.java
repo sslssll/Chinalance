@@ -6,6 +6,7 @@ import com.chinafree.auth.model.po.SysLoginUser;
 import com.chinafree.auth.model.po.SysThirdPartAccount;
 import com.chinafree.auth.model.result.ThirdPartAccountResult;
 import com.chinafree.common.base.BaseService;
+import com.chinafree.common.model.response.BaseResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,9 @@ public interface LoginUserService  extends BaseService<SysLoginUser,Long> {
     LoginUserBo getLoginUserByLoginMail(String loginMail);
     //根据手机获取用户信息
     LoginUserBo getLoginUserByLoginMobile(String loginMobile);
-
     //修改密码
-//    void modifyPassword(String loginId, String password);
+    void modifyPasswordByPhone(Long LoginUserId, String password);
+
 
 
 }
