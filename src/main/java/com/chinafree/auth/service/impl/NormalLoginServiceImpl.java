@@ -73,8 +73,9 @@ public class NormalLoginServiceImpl implements NormalLoginService {
 
         LoginResult result = new LoginResult();
         result.setLoginId(loginUserBo.getId());
-        result.setLoginUserType(loginUserBo.getLoginUserType());
+//        result.setLoginUserType(loginUserBo.getLoginUserType());
         result.setUserId(user.getId());
+        result.setUserName(user.getUsername());
         //////////设置一个token
         String token = JWTUtils.getToken(map);
         result.setToken(token);
@@ -93,9 +94,7 @@ public class NormalLoginServiceImpl implements NormalLoginService {
         //密码输入错误次数
         String loginTimes = "0";
         BoundValueOperations redisWrongTimes = redisTemplate.boundValueOps(LOGIN_TIMES_PREFIX + loginMail);
-        String s = (String) redisWrongTimes.get();
-        boolean empty = StringUtils.isEmpty((String) redisWrongTimes.get());
-        if(StringUtils.isEmpty((String)redisWrongTimes.get())){
+        if(!redisTemplate.hasKey(LOGIN_TIMES_PREFIX + loginMail)){
             if(StringUtils.isEmpty(loginUserBo.getPassword())){
                 throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR,"您未设置密码!!");
             }

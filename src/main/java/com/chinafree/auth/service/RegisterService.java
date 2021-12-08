@@ -1,6 +1,7 @@
 package com.chinafree.auth.service;
 
 import com.chinafree.auth.model.param.RegistrationParam;
+import com.chinafree.auth.model.result.LoginResult;
 import com.chinafree.common.model.response.BaseResponse;
 
 public interface RegisterService {
@@ -9,5 +10,5 @@ public interface RegisterService {
     BaseResponse sendRegisterVerificationCode(String phoneNumber);
 
     //根据手机和验证码注册
-    void registerByPhoneAndCode(RegistrationParam body);
+    LoginResult registerByPhoneAndCode(RegistrationParam body);
 }

@@ -40,7 +40,7 @@ public class JWTUtils {
      * 验证token
      */
     public static void verify(String token) throws UnsupportedEncodingException {
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SALT)).build();
+        DecodedJWT verify = JWT.require(Algorithm.HMAC256(SALT)).build().verify(token);
     }
 
     /**

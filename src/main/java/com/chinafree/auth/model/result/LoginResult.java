@@ -14,11 +14,24 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class LoginResult extends BaseResult {
+    //login id
     private Long loginId;
-    private Integer loginUserType;
+    //用户类型
     private String userType;
+    //用户id
     private Long userId;
-    private boolean isRegister;
+    //用户名
+    private String userName;
+    //token
     private String token;
-    private List<ThirdPartAccountResult> thirdPartAccountResults;
+
+
+
+
+
+    //    private Integer loginUserType;
+//    private boolean isRegister;
+
+
+//    private List<ThirdPartAccountResult> thirdPartAccountResults;
 }

@@ -2,10 +2,13 @@ package com.chinafree.auth.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinafree.auth.exception.BusinessException;
+import com.chinafree.auth.model.bo.LoginUserBo;
 import com.chinafree.auth.model.param.LoginParam;
 import com.chinafree.auth.model.param.RegistrationParam;
 import com.chinafree.auth.model.po.SysLoginUser;
 import com.chinafree.auth.model.po.User;
+import com.chinafree.auth.model.result.LoginResult;
+import com.chinafree.auth.service.LoginUserService;
 import com.chinafree.auth.service.RegisterService;
 import com.chinafree.auth.service.VerificationCode;
 import com.chinafree.common.model.enumeration.ResponseCodeEnum;
@@ -35,6 +38,12 @@ public class RegisterServiceImpl implements RegisterService {
     private SysLoginUserMapper sysLoginUserMapper;
 
     @Autowired
+    private NormalLoginServiceImpl normalLoginService;
+
+    @Autowired
+    private  LoginUserService loginUserService;
+
+    @Autowired
     private UserMapper userMapper;
 
     final static String REGISTER_VERIFICATION = "REGISTER_VERIFICATION";
@@ -46,7 +55,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 
     @Override
-    public void registerByPhoneAndCode(RegistrationParam body) {
+    public LoginResult registerByPhoneAndCode(RegistrationParam body) {
         //1.校验验证码
         if(body.getPhoneNumber()==null){
             throw new BusinessException(ResponseCodeEnum.FORBIDDEN.toString(),"未填写手机号");
@@ -54,6 +63,10 @@ public class RegisterServiceImpl implements RegisterService {
         verificationCode.checkVerificationCode(REGISTER_VERIFICATION,body.getPhoneNumber(),body.getVerification());
         //2.快速注册（插入数据库）
         createUser(body);
+        String phoneNumber = body.getPhoneNumber();
+        LoginUserBo loginUserByLoginMobile = loginUserService.getLoginUserByLoginMobile(phoneNumber);
+        return normalLoginService.getLoginResult(loginUserByLoginMobile);
+
     }
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
