@@ -2,7 +2,6 @@ package com.chinafree.intercepter;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.chinafree.auth.exception.BusinessException;
 import com.chinafree.common.utils.JWTUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
